@@ -1,4 +1,4 @@
-import { useCompanies } from "src/api/companies";
+import { useCompanies } from "@api/companies";
 
 function App() {
   const { isLoading, data } = useCompanies();

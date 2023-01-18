@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { Company } from "src/types";
+import { Company } from "../types";
 
 import data from "./companies.json";
 
