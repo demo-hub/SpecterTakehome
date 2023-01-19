@@ -2,13 +2,13 @@ import { useCompanies } from "@api/companies";
 import {
   Badge,
   Box,
-  Button,
   ButtonGroup,
   Card,
   CardBody,
   CardFooter,
   Divider,
   Heading,
+  IconButton,
   SimpleGrid,
   Stack,
   Stat,
@@ -22,6 +22,13 @@ import {
 } from "@chakra-ui/react";
 import formatNumber from "@utils/formatNumber";
 import { useEffect } from "react";
+
+import googlePlayLogo from "./assets/google-play.png";
+import instagramLogo from "./assets/instagram.png";
+import itunesLogo from "./assets/itunes.png";
+import linkedinLogo from "./assets/linkedin.png";
+import twitterLogo from "./assets/twitter.png";
+import worldWideWebLogo from "./assets/world-wide-web.png";
 
 function App() {
   const { data, isLoading, isSuccess, fetchNextPage, hasNextPage, isFetchingNextPage } =
@@ -64,7 +71,7 @@ function App() {
                       </Badge>
                     </Heading>
                     <Box height={170}>
-                      <Text noOfLines={[5, 6, 7]}>{company.Description}</Text>
+                      <Text noOfLines={[4, 5, 6]}>{company.Description}</Text>
                     </Box>
                     <StatGroup>
                       <Stat>
@@ -127,14 +134,62 @@ function App() {
                   </Stack>
                 </CardBody>
                 <Divider />
-                <CardFooter>
-                  <ButtonGroup spacing="2">
-                    <Button variant="solid" colorScheme="blue">
-                      Buy now
-                    </Button>
-                    <Button variant="ghost" colorScheme="blue">
-                      Add to cart
-                    </Button>
+                <CardFooter maxHeight="fit-content">
+                  <ButtonGroup spacing="0.3">
+                    <IconButton
+                      variant="ghost"
+                      colorScheme="purple"
+                      aria-label="LinkedIn"
+                      icon={<img src={linkedinLogo} alt="LinkedIn" width={15} height={15} />}
+                      borderRadius="50"
+                      onClick={() => window.open(company["LinkedIn - URL"], "_blank")}
+                      size="sm"
+                    />
+                    <IconButton
+                      variant="ghost"
+                      colorScheme="purple"
+                      aria-label="Twitter"
+                      icon={<img src={twitterLogo} alt="Twitter" width={15} height={15} />}
+                      borderRadius="50"
+                      onClick={() => window.open(company["Twitter - URL"], "_blank")}
+                      size="sm"
+                    />
+                    <IconButton
+                      variant="ghost"
+                      colorScheme="purple"
+                      aria-label="Instagram"
+                      icon={<img src={instagramLogo} alt="Instagram" width={15} height={15} />}
+                      borderRadius="50"
+                      onClick={() => window.open(company["Instagram - URL"], "_blank")}
+                      size="sm"
+                    />
+                    <IconButton
+                      variant="ghost"
+                      colorScheme="purple"
+                      aria-label="Google Play"
+                      icon={<img src={googlePlayLogo} alt="Google Play" width={15} height={15} />}
+                      borderRadius="50"
+                      onClick={() => window.open(company["Google Play - URL"], "_blank")}
+                      size="sm"
+                    />
+                    <IconButton
+                      variant="ghost"
+                      colorScheme="purple"
+                      aria-label="iTunes"
+                      icon={<img src={itunesLogo} alt="iTunes" width={15} height={15} />}
+                      borderRadius="50"
+                      onClick={() => window.open(company["iTunes - URL"], "_blank")}
+                      size="sm"
+                    />
+                    <IconButton
+                      variant="ghost"
+                      colorScheme="purple"
+                      aria-label="Website"
+                      icon={<img src={worldWideWebLogo} alt="Website" width={15} height={15} />}
+                      borderRadius="50"
+                      onClick={() => window.open(company.Website, "_blank")}
+                      size="sm"
+                    />
                   </ButtonGroup>
                 </CardFooter>
               </Card>
