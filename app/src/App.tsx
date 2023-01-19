@@ -20,6 +20,7 @@ import {
   Text,
   Tooltip,
 } from "@chakra-ui/react";
+import formatNumber from "@utils/formatNumber";
 import { useEffect } from "react";
 
 function App() {
@@ -68,7 +69,7 @@ function App() {
                     <StatGroup>
                       <Stat>
                         <StatLabel>Employee Count</StatLabel>
-                        <StatNumber>{company["Employee Count"]}</StatNumber>
+                        <StatNumber>{formatNumber(company["Employee Count"])}</StatNumber>
                         <Tooltip label="Monthly Growth">
                           <StatHelpText>
                             <StatArrow
@@ -76,14 +77,17 @@ function App() {
                                 company["Employees - Monthly Growth"] > 0 ? "increase" : "decrease"
                               }
                             />
-                            {company["Employees - Monthly Growth"]}%
+                            {company["Employees - Monthly Growth"].toLocaleString(undefined, {
+                              maximumFractionDigits: 2,
+                            })}
+                            %
                           </StatHelpText>
                         </Tooltip>
                       </Stat>
 
                       <Stat>
                         <StatLabel>LinkedIn Followers</StatLabel>
-                        <StatNumber>{company["LinkedIn - Followers"]}</StatNumber>
+                        <StatNumber>{formatNumber(company["LinkedIn - Followers"])}</StatNumber>
                         <Tooltip label="Monthly Growth">
                           <StatHelpText>
                             <StatArrow
@@ -93,14 +97,18 @@ function App() {
                                   : "decrease"
                               }
                             />
-                            {company["LinkedIn - Monthly Followers Growth"]}%
+                            {company["LinkedIn - Monthly Followers Growth"].toLocaleString(
+                              undefined,
+                              { maximumFractionDigits: 2 }
+                            )}
+                            %
                           </StatHelpText>
                         </Tooltip>
                       </Stat>
 
                       <Stat>
                         <StatLabel>Web Visits</StatLabel>
-                        <StatNumber>{company["Web Visits"]}</StatNumber>
+                        <StatNumber>{formatNumber(company["Web Visits"])}</StatNumber>
                         <Tooltip label="Monthly Growth">
                           <StatHelpText>
                             <StatArrow
@@ -108,7 +116,10 @@ function App() {
                                 company["Web Visits - Monthly Growth"] > 0 ? "increase" : "decrease"
                               }
                             />
-                            {company["Web Visits - Monthly Growth"]}%
+                            {company["Web Visits - Monthly Growth"].toLocaleString(undefined, {
+                              maximumFractionDigits: 2,
+                            })}
+                            %
                           </StatHelpText>
                         </Tooltip>
                       </Stat>
