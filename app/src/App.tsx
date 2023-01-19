@@ -10,6 +10,7 @@ import {
   Heading,
   IconButton,
   SimpleGrid,
+  Spinner,
   Stack,
   Stat,
   StatArrow,
@@ -208,7 +209,7 @@ function App() {
             ))
           )
         : undefined}
-      {isFetchingNextPage && <p>Loading...</p>}
+      {isFetchingNextPage ? <Spinner color="purple" /> : undefined}
     </SimpleGrid>
   );
 }
