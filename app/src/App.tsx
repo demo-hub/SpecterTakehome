@@ -1,4 +1,23 @@
 import { useCompanies } from "@api/companies";
+import {
+  Badge,
+  Button,
+  ButtonGroup,
+  Card,
+  CardBody,
+  CardFooter,
+  Divider,
+  Heading,
+  Stack,
+  Stat,
+  StatArrow,
+  StatGroup,
+  StatHelpText,
+  StatLabel,
+  StatNumber,
+  Text,
+  Tooltip,
+} from "@chakra-ui/react";
 import { useEffect } from "react";
 
 function App() {
@@ -28,11 +47,83 @@ function App() {
 
   return (
     <div>
-      <h1>Good luck!</h1>
-
-      <p>Here is an example of data we hold on a company</p>
       {!isLoading && isSuccess
-        ? data?.pages.map((page) => <pre key={page[0].Rank}>{JSON.stringify(page, null, 2)}</pre>)
+        ? data?.pages.map((page) =>
+            page.map((company) => (
+              <Card maxW="md" key={company.Domain}>
+                <CardBody>
+                  <Stack mt="6" spacing="3">
+                    <Heading size="md">
+                      #{company.Rank} {company["Company Name"]}{" "}
+                      <Badge ml="1" fontSize="0.8em" colorScheme="purple">
+                        {company.Industry}
+                      </Badge>
+                    </Heading>
+                    <Text>{company.Description}</Text>
+                    <StatGroup>
+                      <Stat>
+                        <StatLabel>Employee Count</StatLabel>
+                        <StatNumber>{company["Employee Count"]}</StatNumber>
+                        <Tooltip label="Monthly Growth">
+                          <StatHelpText>
+                            <StatArrow
+                              type={
+                                company["Employees - Monthly Growth"] > 0 ? "increase" : "decrease"
+                              }
+                            />
+                            {company["Employees - Monthly Growth"]}%
+                          </StatHelpText>
+                        </Tooltip>
+                      </Stat>
+
+                      <Stat>
+                        <StatLabel>LinkedIn Followers</StatLabel>
+                        <StatNumber>{company["LinkedIn - Followers"]}</StatNumber>
+                        <Tooltip label="Monthly Growth">
+                          <StatHelpText>
+                            <StatArrow
+                              type={
+                                company["LinkedIn - Monthly Followers Growth"] > 0
+                                  ? "increase"
+                                  : "decrease"
+                              }
+                            />
+                            {company["LinkedIn - Monthly Followers Growth"]}%
+                          </StatHelpText>
+                        </Tooltip>
+                      </Stat>
+
+                      <Stat>
+                        <StatLabel>Web Visits</StatLabel>
+                        <StatNumber>{company["Web Visits"]}</StatNumber>
+                        <Tooltip label="Monthly Growth">
+                          <StatHelpText>
+                            <StatArrow
+                              type={
+                                company["Web Visits - Monthly Growth"] > 0 ? "increase" : "decrease"
+                              }
+                            />
+                            {company["Web Visits - Monthly Growth"]}%
+                          </StatHelpText>
+                        </Tooltip>
+                      </Stat>
+                    </StatGroup>
+                  </Stack>
+                </CardBody>
+                <Divider />
+                <CardFooter>
+                  <ButtonGroup spacing="2">
+                    <Button variant="solid" colorScheme="blue">
+                      Buy now
+                    </Button>
+                    <Button variant="ghost" colorScheme="blue">
+                      Add to cart
+                    </Button>
+                  </ButtonGroup>
+                </CardFooter>
+              </Card>
+            ))
+          )
         : undefined}
     </div>
   );
