@@ -134,62 +134,74 @@ function App() {
                   </Stack>
                 </CardBody>
                 <Divider />
-                <CardFooter maxHeight="fit-content">
+                <CardFooter padding={3}>
                   <ButtonGroup spacing="0.3">
-                    <IconButton
-                      variant="ghost"
-                      colorScheme="purple"
-                      aria-label="LinkedIn"
-                      icon={<img src={linkedinLogo} alt="LinkedIn" width={15} height={15} />}
-                      borderRadius="50"
-                      onClick={() => window.open(company["LinkedIn - URL"], "_blank")}
-                      size="sm"
-                    />
-                    <IconButton
-                      variant="ghost"
-                      colorScheme="purple"
-                      aria-label="Twitter"
-                      icon={<img src={twitterLogo} alt="Twitter" width={15} height={15} />}
-                      borderRadius="50"
-                      onClick={() => window.open(company["Twitter - URL"], "_blank")}
-                      size="sm"
-                    />
-                    <IconButton
-                      variant="ghost"
-                      colorScheme="purple"
-                      aria-label="Instagram"
-                      icon={<img src={instagramLogo} alt="Instagram" width={15} height={15} />}
-                      borderRadius="50"
-                      onClick={() => window.open(company["Instagram - URL"], "_blank")}
-                      size="sm"
-                    />
-                    <IconButton
-                      variant="ghost"
-                      colorScheme="purple"
-                      aria-label="Google Play"
-                      icon={<img src={googlePlayLogo} alt="Google Play" width={15} height={15} />}
-                      borderRadius="50"
-                      onClick={() => window.open(company["Google Play - URL"], "_blank")}
-                      size="sm"
-                    />
-                    <IconButton
-                      variant="ghost"
-                      colorScheme="purple"
-                      aria-label="iTunes"
-                      icon={<img src={itunesLogo} alt="iTunes" width={15} height={15} />}
-                      borderRadius="50"
-                      onClick={() => window.open(company["iTunes - URL"], "_blank")}
-                      size="sm"
-                    />
-                    <IconButton
-                      variant="ghost"
-                      colorScheme="purple"
-                      aria-label="Website"
-                      icon={<img src={worldWideWebLogo} alt="Website" width={15} height={15} />}
-                      borderRadius="50"
-                      onClick={() => window.open(company.Website, "_blank")}
-                      size="sm"
-                    />
+                    {company["LinkedIn - URL"] ? (
+                      <IconButton
+                        variant="ghost"
+                        colorScheme="purple"
+                        aria-label="LinkedIn"
+                        icon={<img src={linkedinLogo} alt="LinkedIn" width={15} height={15} />}
+                        borderRadius="50"
+                        onClick={() => window.open(company["LinkedIn - URL"], "_blank")}
+                        size="sm"
+                      />
+                    ) : undefined}
+                    {company["Twitter - URL"] ? (
+                      <IconButton
+                        variant="ghost"
+                        colorScheme="purple"
+                        aria-label="Twitter"
+                        icon={<img src={twitterLogo} alt="Twitter" width={15} height={15} />}
+                        borderRadius="50"
+                        onClick={() => window.open(company["Twitter - URL"], "_blank")}
+                        size="sm"
+                      />
+                    ) : undefined}
+                    {company["Instagram - URL"] ? (
+                      <IconButton
+                        variant="ghost"
+                        colorScheme="purple"
+                        aria-label="Instagram"
+                        icon={<img src={instagramLogo} alt="Instagram" width={15} height={15} />}
+                        borderRadius="50"
+                        onClick={() => window.open(company["Instagram - URL"], "_blank")}
+                        size="sm"
+                      />
+                    ) : undefined}
+                    {company["Google Play - URL"] ? (
+                      <IconButton
+                        variant="ghost"
+                        colorScheme="purple"
+                        aria-label="Google Play"
+                        icon={<img src={googlePlayLogo} alt="Google Play" width={15} height={15} />}
+                        borderRadius="50"
+                        onClick={() => window.open(company["Google Play - URL"], "_blank")}
+                        size="sm"
+                      />
+                    ) : undefined}
+                    {company["iTunes - URL"] ? (
+                      <IconButton
+                        variant="ghost"
+                        colorScheme="purple"
+                        aria-label="iTunes"
+                        icon={<img src={itunesLogo} alt="iTunes" width={15} height={15} />}
+                        borderRadius="50"
+                        onClick={() => window.open(company["iTunes - URL"], "_blank")}
+                        size="sm"
+                      />
+                    ) : undefined}
+                    {company.Website ? (
+                      <IconButton
+                        variant="ghost"
+                        colorScheme="purple"
+                        aria-label="Website"
+                        icon={<img src={worldWideWebLogo} alt="Website" width={15} height={15} />}
+                        borderRadius="50"
+                        onClick={() => window.open(company.Website, "_blank")}
+                        size="sm"
+                      />
+                    ) : undefined}
                   </ButtonGroup>
                 </CardFooter>
               </Card>
