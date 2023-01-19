@@ -1,6 +1,7 @@
 import { useCompanies } from "@api/companies";
 import {
   Badge,
+  Box,
   Button,
   ButtonGroup,
   Card,
@@ -8,6 +9,7 @@ import {
   CardFooter,
   Divider,
   Heading,
+  SimpleGrid,
   Stack,
   Stat,
   StatArrow,
@@ -21,7 +23,8 @@ import {
 import { useEffect } from "react";
 
 function App() {
-  const { data, isLoading, isSuccess, fetchNextPage, hasNextPage } = useCompanies();
+  const { data, isLoading, isSuccess, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useCompanies();
 
   // This is a custom hook that will fetch the next page of data when the user scrolls to the bottom of the page
   useEffect(() => {
@@ -46,11 +49,11 @@ function App() {
   }, [fetchNextPage, hasNextPage]);
 
   return (
-    <div>
+    <SimpleGrid columns={{ base: 3, sm: 2, md: 3, lg: 4 }} gap={5}>
       {!isLoading && isSuccess
         ? data?.pages.map((page) =>
             page.map((company) => (
-              <Card maxW="md" key={company.Domain}>
+              <Card maxW="md" maxH="md" key={company.Domain}>
                 <CardBody>
                   <Stack mt="6" spacing="3">
                     <Heading size="md">
@@ -59,7 +62,9 @@ function App() {
                         {company.Industry}
                       </Badge>
                     </Heading>
-                    <Text>{company.Description}</Text>
+                    <Box height={170}>
+                      <Text noOfLines={[5, 6, 7]}>{company.Description}</Text>
+                    </Box>
                     <StatGroup>
                       <Stat>
                         <StatLabel>Employee Count</StatLabel>
@@ -125,7 +130,8 @@ function App() {
             ))
           )
         : undefined}
-    </div>
+      {isFetchingNextPage && <p>Loading...</p>}
+    </SimpleGrid>
   );
 }
 

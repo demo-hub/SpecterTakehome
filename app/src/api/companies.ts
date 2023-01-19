@@ -4,13 +4,14 @@ import { Company } from "../types";
 
 import data from "./companies.json";
 
+const ITEMS_PER_PAGE = 12;
+
 export function useCompanies() {
   return useInfiniteQuery(
     ["companyData"],
     ({ pageParam = 1 }) => {
-      // Fetch 10 per page
-      const start = (pageParam - 1) * 10;
-      const end = start + 10;
+      const start = (pageParam - 1) * ITEMS_PER_PAGE;
+      const end = start + ITEMS_PER_PAGE;
 
       return Promise.resolve((data as Company[]).slice(start, end));
     },
