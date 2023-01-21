@@ -1,9 +1,24 @@
 import { useCompanies } from "@api/companies";
-import { SimpleGrid, Spinner } from "@chakra-ui/react";
+import {
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
+  Input,
+  SimpleGrid,
+  Spinner,
+  useDisclosure,
+} from "@chakra-ui/react";
 import CompanyCard from "@components/companyCard";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Company } from "types";
 
 function App() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
+
   const { data, isLoading, isSuccess, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useCompanies();
 
@@ -52,11 +67,26 @@ function App() {
                 instagramUrl={company["Instagram - URL"]}
                 iTunesUrl={company["iTunes - URL"]}
                 googlePlayUrl={company["Google Play - URL"]}
+                onDetailsClick={() => {
+                  onOpen();
+                  setSelectedCompany(company);
+                }}
               />
             ))
           )
         : undefined}
       {isFetchingNextPage ? <Spinner color="purple" /> : undefined}
+      <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="lg">
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>{selectedCompany?.["Company Name"]}</DrawerHeader>
+
+          <DrawerBody>
+            <Input placeholder="Type here..." />
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
     </SimpleGrid>
   );
 }

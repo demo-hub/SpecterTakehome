@@ -1,3 +1,4 @@
+import { InfoOutlineIcon } from "@chakra-ui/icons";
 import {
   Badge,
   Box,
@@ -27,6 +28,12 @@ import linkedinLogo from "../assets/linkedin.png";
 import twitterLogo from "../assets/twitter.png";
 import worldWideWebLogo from "../assets/world-wide-web.png";
 
+import styles from "./companyCard.css";
+
+export function links() {
+  return [{ rel: "stylesheet", href: styles }];
+}
+
 type Props = {
   rank: number;
   companyName: string;
@@ -44,6 +51,7 @@ type Props = {
   iTunesUrl: string;
   googlePlayUrl: string;
   websiteUrl: string;
+  onDetailsClick: () => void;
 };
 
 const CompanyCard = ({
@@ -63,6 +71,7 @@ const CompanyCard = ({
   iTunesUrl,
   googlePlayUrl,
   websiteUrl,
+  onDetailsClick,
 }: Props) => {
   return (
     <Card maxW="md" maxH="md">
@@ -192,6 +201,18 @@ const CompanyCard = ({
             />
           ) : undefined}
         </ButtonGroup>
+        <Tooltip label="Details">
+          <IconButton
+            variant="ghost"
+            colorScheme="purple"
+            aria-label="Website"
+            icon={<InfoOutlineIcon />}
+            borderRadius="50"
+            onClick={onDetailsClick}
+            size="sm"
+            className="details-button"
+          />
+        </Tooltip>
       </CardFooter>
     </Card>
   );

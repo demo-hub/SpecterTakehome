@@ -4,7 +4,7 @@ import { Company } from "../types";
 
 import data from "./companies.json";
 
-const ITEMS_PER_PAGE = 12;
+const ITEMS_PER_PAGE = 100;
 
 export function useCompanies() {
   return useInfiniteQuery(
