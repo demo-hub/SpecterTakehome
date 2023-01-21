@@ -28,12 +28,6 @@ import linkedinLogo from "../assets/linkedin.png";
 import twitterLogo from "../assets/twitter.png";
 import worldWideWebLogo from "../assets/world-wide-web.png";
 
-import styles from "./companyCard.css";
-
-export function links() {
-  return [{ rel: "stylesheet", href: styles }];
-}
-
 type Props = {
   rank: number;
   companyName: string;
@@ -210,7 +204,8 @@ const CompanyCard = ({
             borderRadius="50"
             onClick={onDetailsClick}
             size="sm"
-            className="details-button"
+            marginLeft="auto"
+            marginRight={0}
           />
         </Tooltip>
       </CardFooter>

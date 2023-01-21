@@ -45,7 +45,7 @@ function App() {
   }, [fetchNextPage, hasNextPage]);
 
   return (
-    <SimpleGrid columns={{ base: 3, sm: 2, md: 3, lg: 4 }} gap={5}>
+    <SimpleGrid columns={{ base: 3, sm: 2, md: 3, lg: 4 }} gap={4} padding={4}>
       {!isLoading && isSuccess
         ? data?.pages.map((page) =>
             page.map((company) => (
