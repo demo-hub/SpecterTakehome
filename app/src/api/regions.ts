@@ -4,14 +4,14 @@ import { Company } from "../types";
 
 import data from "./companies.json";
 
-export function useIndustries() {
-  return useQuery(["industries"], () => {
+export function useRegions() {
+  return useQuery(["regions"], () => {
     return Promise.resolve(
       Array.from(
         new Set(
           (data as Company[])
-            .filter((c) => c.Industry)
-            .map((company) => company.Industry)
+            .filter((c) => c["HQ Region"])
+            .map((company) => company["HQ Region"])
             .sort((a, b) => a.localeCompare(b))
         )
       )

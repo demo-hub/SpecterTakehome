@@ -113,4 +113,5 @@ export interface Company {
 
 export interface Filters {
   industries: string[];
+  regions: string[];
 }

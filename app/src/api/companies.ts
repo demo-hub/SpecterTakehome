@@ -16,9 +16,13 @@ export function useCompanies({ filters }: { filters: Filters }) {
       const filteredData = (data as Company[]).filter((company) => {
         if (filters.industries.length > 0 && !filters.industries.includes(company.Industry)) {
           return false;
-        } else {
-          return true;
         }
+
+        if (filters.regions.length > 0 && !filters.regions.includes(company["HQ Region"])) {
+          return false;
+        }
+
+        return true;
       });
 
       return Promise.resolve(filteredData.slice(start, end));

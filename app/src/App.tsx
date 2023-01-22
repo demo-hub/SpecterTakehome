@@ -1,5 +1,6 @@
 import { useCompanies } from "@api/companies";
 import { useIndustries } from "@api/industries";
+import { useRegions } from "@api/regions";
 import {
   Box,
   Drawer,
@@ -8,6 +9,7 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
+  Grid,
   Input,
   SimpleGrid,
   Spinner,
@@ -23,11 +25,13 @@ function App() {
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
   const [favoriteCompanies, setFavoriteCompanies] = useState<string[]>([]);
   const [filteredIndustries, setFilteredIndustries] = useState<string[]>([]);
+  const [filteredRegions, setFilteredRegions] = useState<string[]>([]);
 
   const { data, isLoading, isSuccess, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useCompanies({ filters: { industries: filteredIndustries } });
+    useCompanies({ filters: { industries: filteredIndustries, regions: filteredRegions } });
 
   const { data: industries } = useIndustries();
+  const { data: regions } = useRegions();
 
   // This is a custom hook that will fetch the next page of data when the user scrolls to the bottom of the page
   useEffect(() => {
@@ -59,23 +63,42 @@ function App() {
 
   return (
     <Box paddingTop={4}>
-      <Select
-        options={industries?.map((i) => {
-          return { value: i, label: i };
-        })}
-        isMulti
-        placeholder="Filter by industry"
-        onChange={(selected) => {
-          if (selected) {
-            setFilteredIndustries(selected.map((i) => i.value));
-          } else {
-            setFilteredIndustries([]);
-          }
-        }}
-        value={filteredIndustries.map((i) => {
-          return { value: i, label: i };
-        })}
-      />
+      <Grid templateColumns="repeat(3, 1fr)" gap={4} paddingLeft={4}>
+        <Select
+          options={industries?.map((i) => {
+            return { value: i, label: i };
+          })}
+          isMulti
+          placeholder="Filter by industry"
+          onChange={(selected) => {
+            if (selected) {
+              setFilteredIndustries(selected.map((i) => i.value));
+            } else {
+              setFilteredIndustries([]);
+            }
+          }}
+          value={filteredIndustries.map((i) => {
+            return { value: i, label: i };
+          })}
+        />
+        <Select
+          options={regions?.map((i) => {
+            return { value: i, label: i };
+          })}
+          isMulti
+          placeholder="Filter by region"
+          onChange={(selected) => {
+            if (selected) {
+              setFilteredRegions(selected.map((i) => i.value));
+            } else {
+              setFilteredRegions([]);
+            }
+          }}
+          value={filteredRegions.map((i) => {
+            return { value: i, label: i };
+          })}
+        />
+      </Grid>
       {isLoading ? (
         <Spinner color="purple" />
       ) : (
@@ -86,6 +109,7 @@ function App() {
                   <CompanyCard
                     key={company.Domain}
                     companyDomain={company.Domain}
+                    hqLocation={company["HQ Location"]}
                     rank={company.Rank}
                     companyName={company["Company Name"]}
                     industry={company.Industry}
@@ -96,7 +120,6 @@ function App() {
                     linkedInMonthlyGrowth={company["LinkedIn - Monthly Followers Growth"]}
                     webVisits={company["Web Visits"]}
                     webVisitsMonthlyGrowth={company["Web Visits - Monthly Growth"]}
-                    websiteUrl={company.Website}
                     linkedinUrl={company["LinkedIn - URL"]}
                     twitterUrl={company["Twitter - URL"]}
                     instagramUrl={company["Instagram - URL"]}

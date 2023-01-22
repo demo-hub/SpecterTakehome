@@ -26,12 +26,12 @@ import instagramLogo from "../assets/instagram.png";
 import itunesLogo from "../assets/itunes.png";
 import linkedinLogo from "../assets/linkedin.png";
 import twitterLogo from "../assets/twitter.png";
-import worldWideWebLogo from "../assets/world-wide-web.png";
 
 type Props = {
   rank: number;
   companyName: string;
   companyDomain: string;
+  hqLocation: string;
   industry: string;
   description: string;
   employeeCount: number;
@@ -45,7 +45,6 @@ type Props = {
   instagramUrl: string;
   iTunesUrl: string;
   googlePlayUrl: string;
-  websiteUrl: string;
   onDetailsClick: () => void;
   favorite: boolean;
   onCompanyFavorite: (companyDomain: string) => void;
@@ -56,6 +55,7 @@ const CompanyCard = ({
   rank,
   companyName,
   companyDomain,
+  hqLocation,
   industry,
   description,
   employeeCount,
@@ -69,7 +69,6 @@ const CompanyCard = ({
   instagramUrl,
   iTunesUrl,
   googlePlayUrl,
-  websiteUrl,
   onDetailsClick,
   favorite,
   onCompanyFavorite,
@@ -119,6 +118,7 @@ const CompanyCard = ({
               )}
             </Tooltip>
           </Heading>
+          <Text fontSize="xs">{hqLocation}</Text>
           <Box height={170}>
             <Text noOfLines={[4, 5, 6]}>{description}</Text>
           </Box>
@@ -234,17 +234,6 @@ const CompanyCard = ({
               icon={<img src={itunesLogo} alt="iTunes" width={15} height={15} />}
               borderRadius="50"
               onClick={() => window.open(iTunesUrl, "_blank")}
-              size="sm"
-            />
-          ) : undefined}
-          {websiteUrl ? (
-            <IconButton
-              variant="ghost"
-              colorScheme="purple"
-              aria-label="Website"
-              icon={<img src={worldWideWebLogo} alt="Website" width={15} height={15} />}
-              borderRadius="50"
-              onClick={() => window.open(websiteUrl, "_blank")}
               size="sm"
             />
           ) : undefined}
