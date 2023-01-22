@@ -110,3 +110,7 @@ export interface Company {
   "Contact Email": string;
   "Phone Number": string;
 }
+
+export interface Filters {
+  industries: string[];
+}

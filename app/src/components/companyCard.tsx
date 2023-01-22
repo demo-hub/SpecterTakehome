@@ -1,6 +1,5 @@
 import { InfoIcon, StarIcon } from "@chakra-ui/icons";
 import {
-  Badge,
   Box,
   ButtonGroup,
   Card,
@@ -16,6 +15,7 @@ import {
   StatHelpText,
   StatLabel,
   StatNumber,
+  Tag,
   Text,
   Tooltip,
 } from "@chakra-ui/react";
@@ -35,11 +35,11 @@ type Props = {
   industry: string;
   description: string;
   employeeCount: number;
-  employeeMonthlyGrowth: number;
+  employeeMonthlyGrowth?: number;
   linkedInFollowers: number;
-  linkedInMonthlyGrowth: number;
+  linkedInMonthlyGrowth?: number;
   webVisits: number;
-  webVisitsMonthlyGrowth: number;
+  webVisitsMonthlyGrowth?: number;
   linkedinUrl: string;
   twitterUrl: string;
   instagramUrl: string;
@@ -49,6 +49,7 @@ type Props = {
   onDetailsClick: () => void;
   favorite: boolean;
   onCompanyFavorite: (companyDomain: string) => void;
+  onIndustryClick: (industry: string) => void;
 };
 
 const CompanyCard = ({
@@ -72,6 +73,7 @@ const CompanyCard = ({
   onDetailsClick,
   favorite,
   onCompanyFavorite,
+  onIndustryClick,
 }: Props) => {
   return (
     <Card
@@ -86,9 +88,15 @@ const CompanyCard = ({
             <Text isTruncated>
               #{rank} {companyName}
             </Text>
-            <Badge ml="1" fontSize="0.8em" colorScheme="purple">
+            <Tag
+              ml="1"
+              fontSize="0.8em"
+              colorScheme="purple"
+              onClick={() => onIndustryClick(industry)}
+              cursor="pointer"
+            >
               {industry}
-            </Badge>
+            </Tag>
             <Tooltip label={favorite ? "Remove favorite" : "Mark as favorite"}>
               <StarIcon
                 focusable
@@ -109,8 +117,12 @@ const CompanyCard = ({
               <StatNumber>{formatNumber(employeeCount)}</StatNumber>
               <Tooltip label="Monthly Growth">
                 <StatHelpText>
-                  <StatArrow type={employeeMonthlyGrowth > 0 ? "increase" : "decrease"} />
-                  {employeeMonthlyGrowth.toLocaleString(undefined, {
+                  <StatArrow
+                    type={
+                      employeeMonthlyGrowth && employeeMonthlyGrowth > 0 ? "increase" : "decrease"
+                    }
+                  />
+                  {employeeMonthlyGrowth?.toLocaleString(undefined, {
                     maximumFractionDigits: 2,
                   })}
                   %
@@ -123,8 +135,12 @@ const CompanyCard = ({
               <StatNumber>{formatNumber(linkedInFollowers)}</StatNumber>
               <Tooltip label="Monthly Growth">
                 <StatHelpText>
-                  <StatArrow type={linkedInMonthlyGrowth > 0 ? "increase" : "decrease"} />
-                  {linkedInMonthlyGrowth.toLocaleString(undefined, {
+                  <StatArrow
+                    type={
+                      linkedInMonthlyGrowth && linkedInMonthlyGrowth > 0 ? "increase" : "decrease"
+                    }
+                  />
+                  {linkedInMonthlyGrowth?.toLocaleString(undefined, {
                     maximumFractionDigits: 2,
                   })}
                   %
@@ -137,8 +153,12 @@ const CompanyCard = ({
               <StatNumber>{formatNumber(webVisits)}</StatNumber>
               <Tooltip label="Monthly Growth">
                 <StatHelpText>
-                  <StatArrow type={webVisitsMonthlyGrowth > 0 ? "increase" : "decrease"} />
-                  {webVisitsMonthlyGrowth.toLocaleString(undefined, {
+                  <StatArrow
+                    type={
+                      webVisitsMonthlyGrowth && webVisitsMonthlyGrowth > 0 ? "increase" : "decrease"
+                    }
+                  />
+                  {webVisitsMonthlyGrowth?.toLocaleString(undefined, {
                     maximumFractionDigits: 2,
                   })}
                   %
