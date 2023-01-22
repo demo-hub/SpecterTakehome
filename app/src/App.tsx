@@ -21,12 +21,25 @@ import { Select } from "chakra-react-select";
 import { useEffect, useState } from "react";
 import { Company } from "types";
 
+const EMPLOYEES_FILTER_OPTIONS = [
+  { value: { minEmployeeCount: 0, maxEmployeeCount: 10 }, label: "0-10" },
+  { value: { minEmployeeCount: 11, maxEmployeeCount: 50 }, label: "11-50" },
+  { value: { minEmployeeCount: 51, maxEmployeeCount: 100 }, label: "51-100" },
+  { value: { minEmployeeCount: 101, maxEmployeeCount: 500 }, label: "101-500" },
+  { value: { minEmployeeCount: 501, maxEmployeeCount: 1000 }, label: "501-1000" },
+  { value: { minEmployeeCount: 1001, maxEmployeeCount: undefined }, label: "1001+" },
+];
+
 function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
   const [favoriteCompanies, setFavoriteCompanies] = useState<string[]>([]);
   const [filteredIndustries, setFilteredIndustries] = useState<string[]>([]);
   const [filteredRegions, setFilteredRegions] = useState<string[]>([]);
+  const [filteredEmployeeCount, setFilteredEmployeeCount] = useState<{
+    minEmployeeCount: number | undefined;
+    maxEmployeeCount: number | undefined;
+  }>({ minEmployeeCount: undefined, maxEmployeeCount: undefined });
   const [onlyFavorites, setOnlyFavorites] = useState(false);
 
   const { data, isLoading, isSuccess, fetchNextPage, hasNextPage, isFetchingNextPage } =
@@ -34,6 +47,8 @@ function App() {
       filters: {
         industries: filteredIndustries,
         regions: filteredRegions,
+        minEmployeeCount: filteredEmployeeCount.minEmployeeCount,
+        maxEmployeeCount: filteredEmployeeCount.maxEmployeeCount,
         favoriteCompanies: onlyFavorites ? favoriteCompanies : [],
       },
     });
@@ -71,7 +86,7 @@ function App() {
 
   return (
     <Box paddingTop={4}>
-      <Grid templateColumns="repeat(3, 1fr)" gap={4} paddingLeft={4}>
+      <Grid templateColumns="repeat(4, 1fr)" gap={4} paddingLeft={4}>
         <Select
           options={industries?.map((i) => {
             return { value: i, label: i };
@@ -107,6 +122,22 @@ function App() {
           value={filteredRegions.map((i) => {
             return { value: i, label: i };
           })}
+          colorScheme="purple"
+          focusBorderColor="purple.500"
+        />
+        <Select
+          options={EMPLOYEES_FILTER_OPTIONS}
+          placeholder="Filter by employee count"
+          onChange={(selected) => {
+            if (selected) {
+              setFilteredEmployeeCount(selected.value);
+            } else {
+              setFilteredEmployeeCount({
+                minEmployeeCount: undefined,
+                maxEmployeeCount: undefined,
+              });
+            }
+          }}
           colorScheme="purple"
           focusBorderColor="purple.500"
         />

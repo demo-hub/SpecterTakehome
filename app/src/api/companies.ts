@@ -29,6 +29,20 @@ export function useCompanies({ filters }: { filters: Filters }) {
           return false;
         }
 
+        if (
+          filters.minEmployeeCount &&
+          (company["Employee Count"] < filters.minEmployeeCount || !company["Employee Count"])
+        ) {
+          return false;
+        }
+
+        if (
+          filters.maxEmployeeCount &&
+          (company["Employee Count"] > filters.maxEmployeeCount || !company["Employee Count"])
+        ) {
+          return false;
+        }
+
         return true;
       });
 

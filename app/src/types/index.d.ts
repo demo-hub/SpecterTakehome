@@ -114,5 +114,7 @@ export interface Company {
 export interface Filters {
   industries: string[];
   regions: string[];
+  minEmployeeCount: number | undefined;
+  maxEmployeeCount: number | undefined;
   favoriteCompanies: string[];
 }

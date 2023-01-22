@@ -125,7 +125,7 @@ const CompanyCard = ({
           <StatGroup>
             <Stat>
               <StatLabel>Employee Count</StatLabel>
-              <StatNumber>{formatNumber(employeeCount)}</StatNumber>
+              <StatNumber>{formatNumber(employeeCount) ?? "N/A"}</StatNumber>
               <Tooltip label="Monthly Growth">
                 <StatHelpText>
                   <StatArrow
@@ -135,7 +135,7 @@ const CompanyCard = ({
                   />
                   {employeeMonthlyGrowth?.toLocaleString(undefined, {
                     maximumFractionDigits: 2,
-                  })}
+                  }) ?? "N/A"}
                   %
                 </StatHelpText>
               </Tooltip>
@@ -143,7 +143,7 @@ const CompanyCard = ({
 
             <Stat>
               <StatLabel>LinkedIn Followers</StatLabel>
-              <StatNumber>{formatNumber(linkedInFollowers)}</StatNumber>
+              <StatNumber>{formatNumber(linkedInFollowers) ?? "N/A"}</StatNumber>
               <Tooltip label="Monthly Growth">
                 <StatHelpText>
                   <StatArrow
@@ -153,7 +153,7 @@ const CompanyCard = ({
                   />
                   {linkedInMonthlyGrowth?.toLocaleString(undefined, {
                     maximumFractionDigits: 2,
-                  })}
+                  }) ?? "N/A"}
                   %
                 </StatHelpText>
               </Tooltip>
@@ -161,7 +161,7 @@ const CompanyCard = ({
 
             <Stat>
               <StatLabel>Web Visits</StatLabel>
-              <StatNumber>{formatNumber(webVisits)}</StatNumber>
+              <StatNumber>{formatNumber(webVisits) ?? "N/A"}</StatNumber>
               <Tooltip label="Monthly Growth">
                 <StatHelpText>
                   <StatArrow
@@ -171,7 +171,7 @@ const CompanyCard = ({
                   />
                   {webVisitsMonthlyGrowth?.toLocaleString(undefined, {
                     maximumFractionDigits: 2,
-                  })}
+                  }) ?? "N/A"}
                   %
                 </StatHelpText>
               </Tooltip>
