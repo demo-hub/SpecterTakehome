@@ -18,6 +18,7 @@ import { Company } from "types";
 function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
+  const [favoriteCompanies, setFavoriteCompanies] = useState<string[]>([]);
 
   const { data, isLoading, isSuccess, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useCompanies();
@@ -51,6 +52,7 @@ function App() {
             page.map((company) => (
               <CompanyCard
                 key={company.Domain}
+                companyDomain={company.Domain}
                 rank={company.Rank}
                 companyName={company["Company Name"]}
                 industry={company.Industry}
@@ -70,6 +72,16 @@ function App() {
                 onDetailsClick={() => {
                   onOpen();
                   setSelectedCompany(company);
+                }}
+                favorite={favoriteCompanies.includes(company.Domain)}
+                onCompanyFavorite={(companyDomain) => {
+                  if (favoriteCompanies.includes(companyDomain)) {
+                    setFavoriteCompanies(
+                      favoriteCompanies.filter((domain) => domain !== companyDomain)
+                    );
+                  } else {
+                    setFavoriteCompanies([...favoriteCompanies, companyDomain]);
+                  }
                 }}
               />
             ))

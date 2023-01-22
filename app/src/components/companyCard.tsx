@@ -1,4 +1,4 @@
-import { InfoOutlineIcon } from "@chakra-ui/icons";
+import { InfoIcon, StarIcon } from "@chakra-ui/icons";
 import {
   Badge,
   Box,
@@ -31,6 +31,7 @@ import worldWideWebLogo from "../assets/world-wide-web.png";
 type Props = {
   rank: number;
   companyName: string;
+  companyDomain: string;
   industry: string;
   description: string;
   employeeCount: number;
@@ -46,11 +47,14 @@ type Props = {
   googlePlayUrl: string;
   websiteUrl: string;
   onDetailsClick: () => void;
+  favorite: boolean;
+  onCompanyFavorite: (companyDomain: string) => void;
 };
 
 const CompanyCard = ({
   rank,
   companyName,
+  companyDomain,
   industry,
   description,
   employeeCount,
@@ -66,16 +70,35 @@ const CompanyCard = ({
   googlePlayUrl,
   websiteUrl,
   onDetailsClick,
+  favorite,
+  onCompanyFavorite,
 }: Props) => {
   return (
-    <Card maxW="md" maxH="md">
+    <Card
+      maxW="md"
+      maxH="md"
+      border={favorite ? "2px" : ""}
+      borderColor={favorite ? "yellow.300" : "gray"}
+    >
       <CardBody>
         <Stack mt="6" spacing="3">
-          <Heading size="md">
-            #{rank} {companyName}{" "}
+          <Heading size="md" display="flex">
+            <Text isTruncated>
+              #{rank} {companyName}
+            </Text>
             <Badge ml="1" fontSize="0.8em" colorScheme="purple">
               {industry}
             </Badge>
+            <Tooltip label={favorite ? "Remove favorite" : "Mark as favorite"}>
+              <StarIcon
+                focusable
+                role="button"
+                marginRight={0}
+                marginLeft="auto"
+                color="yellow.300"
+                onClick={() => onCompanyFavorite(companyDomain)}
+              />
+            </Tooltip>
           </Heading>
           <Box height={170}>
             <Text noOfLines={[4, 5, 6]}>{description}</Text>
@@ -200,7 +223,7 @@ const CompanyCard = ({
             variant="ghost"
             colorScheme="purple"
             aria-label="Website"
-            icon={<InfoOutlineIcon />}
+            icon={<InfoIcon />}
             borderRadius="50"
             onClick={onDetailsClick}
             size="sm"
