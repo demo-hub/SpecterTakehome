@@ -25,6 +25,12 @@ function App() {
 
   // This is a custom hook that will fetch the next page of data when the user scrolls to the bottom of the page
   useEffect(() => {
+    // Initialize favoriteCompanies from sessionStorage
+    const favoriteCompanies = sessionStorage.getItem("favoriteCompanies");
+    if (favoriteCompanies) {
+      setFavoriteCompanies(JSON.parse(favoriteCompanies));
+    }
+
     let fetching = false;
 
     const handleScroll = async (e: any) => {
@@ -79,8 +85,16 @@ function App() {
                     setFavoriteCompanies(
                       favoriteCompanies.filter((domain) => domain !== companyDomain)
                     );
+                    sessionStorage.setItem(
+                      "favoriteCompanies",
+                      JSON.stringify(favoriteCompanies.filter((domain) => domain !== companyDomain))
+                    );
                   } else {
                     setFavoriteCompanies([...favoriteCompanies, companyDomain]);
+                    sessionStorage.setItem(
+                      "favoriteCompanies",
+                      JSON.stringify([...favoriteCompanies, companyDomain])
+                    );
                   }
                 }}
               />
