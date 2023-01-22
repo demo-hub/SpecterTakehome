@@ -22,6 +22,13 @@ export function useCompanies({ filters }: { filters: Filters }) {
           return false;
         }
 
+        if (
+          filters.favoriteCompanies.length > 0 &&
+          !filters.favoriteCompanies.includes(company.Domain)
+        ) {
+          return false;
+        }
+
         return true;
       });
 

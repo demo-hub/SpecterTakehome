@@ -3,6 +3,7 @@ import { useIndustries } from "@api/industries";
 import { useRegions } from "@api/regions";
 import {
   Box,
+  Checkbox,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -26,9 +27,16 @@ function App() {
   const [favoriteCompanies, setFavoriteCompanies] = useState<string[]>([]);
   const [filteredIndustries, setFilteredIndustries] = useState<string[]>([]);
   const [filteredRegions, setFilteredRegions] = useState<string[]>([]);
+  const [onlyFavorites, setOnlyFavorites] = useState(false);
 
   const { data, isLoading, isSuccess, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useCompanies({ filters: { industries: filteredIndustries, regions: filteredRegions } });
+    useCompanies({
+      filters: {
+        industries: filteredIndustries,
+        regions: filteredRegions,
+        favoriteCompanies: onlyFavorites ? favoriteCompanies : [],
+      },
+    });
 
   const { data: industries } = useIndustries();
   const { data: regions } = useRegions();
@@ -80,6 +88,8 @@ function App() {
           value={filteredIndustries.map((i) => {
             return { value: i, label: i };
           })}
+          colorScheme="purple"
+          focusBorderColor="purple.500"
         />
         <Select
           options={regions?.map((i) => {
@@ -97,7 +107,16 @@ function App() {
           value={filteredRegions.map((i) => {
             return { value: i, label: i };
           })}
+          colorScheme="purple"
+          focusBorderColor="purple.500"
         />
+        <Checkbox
+          colorScheme="purple"
+          isChecked={onlyFavorites}
+          onChange={(e) => setOnlyFavorites(e.target.checked)}
+        >
+          Show only favorites
+        </Checkbox>
       </Grid>
       {isLoading ? (
         <Spinner color="purple" />
