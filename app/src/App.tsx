@@ -8,7 +8,6 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
-  Heading,
   Input,
   SimpleGrid,
   Spinner,
@@ -60,9 +59,6 @@ function App() {
 
   return (
     <Box paddingTop={4}>
-      <Heading size="2xl" textAlign="center">
-        Specter
-      </Heading>
       <Select
         options={industries?.map((i) => {
           return { value: i, label: i };

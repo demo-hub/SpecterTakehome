@@ -1,4 +1,4 @@
-import { InfoIcon, StarIcon } from "@chakra-ui/icons";
+import { InfoIcon, PlusSquareIcon, StarIcon } from "@chakra-ui/icons";
 import {
   Box,
   ButtonGroup,
@@ -98,14 +98,25 @@ const CompanyCard = ({
               {industry}
             </Tag>
             <Tooltip label={favorite ? "Remove favorite" : "Mark as favorite"}>
-              <StarIcon
-                focusable
-                role="button"
-                marginRight={0}
-                marginLeft="auto"
-                color="yellow.300"
-                onClick={() => onCompanyFavorite(companyDomain)}
-              />
+              {favorite ? (
+                <StarIcon
+                  focusable
+                  role="button"
+                  marginRight={0}
+                  marginLeft="auto"
+                  color="yellow.300"
+                  onClick={() => onCompanyFavorite(companyDomain)}
+                />
+              ) : (
+                <PlusSquareIcon
+                  focusable
+                  role="button"
+                  marginRight={0}
+                  marginLeft="auto"
+                  color="purple"
+                  onClick={() => onCompanyFavorite(companyDomain)}
+                />
+              )}
             </Tooltip>
           </Heading>
           <Box height={170}>
