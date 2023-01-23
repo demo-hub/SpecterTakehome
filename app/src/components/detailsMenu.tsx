@@ -41,6 +41,9 @@ const DeatilsMenu = ({ isOpen, onClose, selectedCompany }: Props) => {
           <Tag ml="1" fontSize="0.8em" colorScheme="purple">
             {selectedCompany?.Industry}
           </Tag>
+          <Text fontSize="xs" fontWeight="light">
+            {selectedCompany?.["HQ Location"]}
+          </Text>
         </DrawerHeader>
 
         <DrawerBody>
