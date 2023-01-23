@@ -3,32 +3,21 @@ import { useIndustries } from "@api/industries";
 import { useRegions } from "@api/regions";
 import {
   Box,
-  Checkbox,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
-  Grid,
   Input,
   SimpleGrid,
   Spinner,
   useDisclosure,
 } from "@chakra-ui/react";
 import CompanyCard from "@components/companyCard";
-import { Select } from "chakra-react-select";
+import FilterBar from "@components/filterBar";
 import { useEffect, useState } from "react";
 import { Company } from "types";
-
-const EMPLOYEES_FILTER_OPTIONS = [
-  { value: { minEmployeeCount: 0, maxEmployeeCount: 10 }, label: "0-10" },
-  { value: { minEmployeeCount: 11, maxEmployeeCount: 50 }, label: "11-50" },
-  { value: { minEmployeeCount: 51, maxEmployeeCount: 100 }, label: "51-100" },
-  { value: { minEmployeeCount: 101, maxEmployeeCount: 500 }, label: "101-500" },
-  { value: { minEmployeeCount: 501, maxEmployeeCount: 1000 }, label: "501-1000" },
-  { value: { minEmployeeCount: 1001, maxEmployeeCount: undefined }, label: "1001+" },
-];
 
 function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -86,69 +75,38 @@ function App() {
 
   return (
     <Box paddingTop={4}>
-      <Grid templateColumns="repeat(4, 1fr)" gap={4} paddingLeft={4}>
-        <Select
-          options={industries?.map((i) => {
-            return { value: i, label: i };
-          })}
-          isMulti
-          placeholder="Filter by industry"
-          onChange={(selected) => {
-            if (selected) {
-              setFilteredIndustries(selected.map((i) => i.value));
-            } else {
-              setFilteredIndustries([]);
-            }
-          }}
-          value={filteredIndustries.map((i) => {
-            return { value: i, label: i };
-          })}
-          colorScheme="purple"
-          focusBorderColor="purple.500"
-        />
-        <Select
-          options={regions?.map((i) => {
-            return { value: i, label: i };
-          })}
-          isMulti
-          placeholder="Filter by region"
-          onChange={(selected) => {
-            if (selected) {
-              setFilteredRegions(selected.map((i) => i.value));
-            } else {
-              setFilteredRegions([]);
-            }
-          }}
-          value={filteredRegions.map((i) => {
-            return { value: i, label: i };
-          })}
-          colorScheme="purple"
-          focusBorderColor="purple.500"
-        />
-        <Select
-          options={EMPLOYEES_FILTER_OPTIONS}
-          placeholder="Filter by employee count"
-          onChange={(selected) => {
-            if (selected) {
-              setFilteredEmployeeCount(selected.value);
-            } else {
-              setFilteredEmployeeCount({
-                minEmployeeCount: undefined,
-                maxEmployeeCount: undefined,
-              });
-            }
-          }}
-          colorScheme="purple"
-          focusBorderColor="purple.500"
-        />
-        <Checkbox
-          colorScheme="purple"
-          isChecked={onlyFavorites}
-          onChange={(e) => setOnlyFavorites(e.target.checked)}
-        >
-          Show only favorites
-        </Checkbox>
-      </Grid>
+      <FilterBar
+        industries={industries}
+        regions={regions}
+        filteredIndustries={filteredIndustries}
+        filteredRegions={filteredRegions}
+        onlyFavorites={onlyFavorites}
+        onChangeFilteredEmployeeCount={(selected) => {
+          if (selected) {
+            setFilteredEmployeeCount(selected.value);
+          } else {
+            setFilteredEmployeeCount({
+              minEmployeeCount: undefined,
+              maxEmployeeCount: undefined,
+            });
+          }
+        }}
+        onChangeIndustries={(selected) => {
+          if (selected) {
+            setFilteredIndustries(selected.map((i) => i.value));
+          } else {
+            setFilteredIndustries([]);
+          }
+        }}
+        onChangeRegions={(selected) => {
+          if (selected) {
+            setFilteredRegions(selected.map((i) => i.value));
+          } else {
+            setFilteredRegions([]);
+          }
+        }}
+        onChangeOnlyFavorites={(value) => setOnlyFavorites(value)}
+      />
       {isLoading ? (
         <Spinner color="purple" />
       ) : (
@@ -212,7 +170,9 @@ function App() {
             <DrawerOverlay />
             <DrawerContent>
               <DrawerCloseButton />
-              <DrawerHeader>{selectedCompany?.["Company Name"]}</DrawerHeader>
+              <DrawerHeader>
+                #{selectedCompany?.Rank} {selectedCompany?.["Company Name"]}
+              </DrawerHeader>
 
               <DrawerBody>
                 <Input placeholder="Type here..." />
