@@ -428,9 +428,9 @@ const DeatilsMenu = ({ isOpen, onClose, selectedCompany }: Props) => {
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="LinkedIn" fill="#0A66C2" />
-                  <Bar dataKey="Twitter" fill="#1D9BF0" />
-                  <Bar dataKey="Instagram" fill="#F56040" />
+                  <Bar dataKey="LinkedIn" stackId="a" fill="#0A66C2" />
+                  <Bar dataKey="Twitter" stackId="a" fill="#1D9BF0" />
+                  <Bar dataKey="Instagram" stackId="a" fill="#F56040" />
                 </BarChart>
                 <Text fontSize="lg" as="b" mt="8">
                   Reviews
@@ -450,8 +450,8 @@ const DeatilsMenu = ({ isOpen, onClose, selectedCompany }: Props) => {
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="iTunes" fill="#F56040" />
-                  <Bar dataKey="Google Play" fill="#4285F4" />
+                  <Bar dataKey="iTunes" stackId="a" fill="#F56040" />
+                  <Bar dataKey="Google Play" stackId="a" fill="#4285F4" />
                 </BarChart>
               </TabPanel>
             </TabPanels>
