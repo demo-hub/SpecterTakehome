@@ -1,7 +1,7 @@
 import { useCompanies } from "@api/companies";
 import { useIndustries } from "@api/industries";
 import { useRegions } from "@api/regions";
-import { Box, SimpleGrid, Spinner, useDisclosure } from "@chakra-ui/react";
+import { Box, Center, SimpleGrid, Spinner, useDisclosure } from "@chakra-ui/react";
 import CompanyCard from "@components/companyCard";
 import DeatilsMenu from "@components/detailsMenu";
 import FilterBar from "@components/filterBar";
@@ -97,7 +97,9 @@ function App() {
         onChangeOnlyFavorites={(value) => setOnlyFavorites(value)}
       />
       {isLoading ? (
-        <Spinner color="purple" />
+        <Center mt="12">
+          <Spinner size="lg" color="purple" />
+        </Center>
       ) : (
         <SimpleGrid columns={{ base: 3, sm: 2, md: 3, lg: 4 }} gap={4} padding={4}>
           {!isLoading && isSuccess

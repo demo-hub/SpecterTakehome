@@ -151,10 +151,7 @@ const CompanyCard = ({
                       linkedInMonthlyGrowth && linkedInMonthlyGrowth > 0 ? "increase" : "decrease"
                     }
                   />
-                  {linkedInMonthlyGrowth?.toLocaleString(undefined, {
-                    maximumFractionDigits: 2,
-                  }) ?? "N/A"}
-                  %
+                  {linkedInMonthlyGrowth ?? "N/A"}
                 </StatHelpText>
               </Tooltip>
             </Stat>
